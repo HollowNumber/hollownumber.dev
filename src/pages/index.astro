@@ -1,11 +1,152 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// TODO: check repo URLs / make public before linking
+
+const projects = (await getCollection("projects", ({data}) => !data.draft )).sort((a,b) => a.data.order - b.data.order );
+
+const links = [
+  { label: "GitHub", href: "https://github.com/HollowNumber" },
+  { label: "Email", href: "mailto:mikkel@hollownumber.dev" },
+  { label: "CV", href: "/cv.pdf" },
+];
+
+const year = new Date().getFullYear();
 ---
 
 <Layout>
-	<Welcome />
+  <main>
+    <header class="intro">
+      <h1>Mikkel M.H. Pedersen</h1>
+      <p class="handle">HollowNumber</p>
+      <p class="hook">I build the tools I wish existed.</p>
+      <p class="meta">CS student at DTU, RPA developer at DSB, mostly writing Rust.</p>
+      <nav aria-label="Links">
+        <ul class="links">
+          {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+    </header>
+
+    <section aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Projects</h2>
+      <ul class="projects">
+    {projects.map((p) => (
+      <li>
+        <h3>
+          {p.data.repo
+            ? <a href={p.data.repo}>{p.data.name}</a>
+            : p.data.name}
+        </h3>
+        <p>{p.data.description}</p>
+        <ul class="tags">
+          {p.data.tags.map((t) => <li>{t}</li>)}
+        </ul>
+      </li>
+    ))}
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© {year} Mikkel · <a href="https://github.com/HollowNumber/hollownumber.dev">source</a></p>
+  </footer>
 </Layout>
+
+<style>
+  main, footer {
+    max-width: 68ch;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  main { padding-block: clamp(3rem, 10vh, 6rem) 3rem; }
+
+  .intro { margin-bottom: 4rem; }
+
+  h1 { font-size: clamp(2rem, 6vw, 2.75rem); }
+
+  .handle {
+    margin: 0.25rem 0 1.25rem;
+    font-family: var(--font-mono);
+    color: var(--accent);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+  }
+
+  h2 {
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--subtext);
+    margin-bottom: 1.5rem;
+  }
+
+  .projects {
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+
+    .hook {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--text);
+    }
+
+    .meta {
+      margin: 0.25rem 0 0;
+      color: var(--subtext);
+    }
+
+  .projects > li {
+    padding: 1.25rem;
+    background: var(--mantle);
+    border: 1px solid var(--surface0);
+    border-radius: 8px;
+  }
+
+  h3 { font-size: 1.125rem; }
+  h3 a { color: var(--text); text-decoration: none; }
+  h3 a:hover { color: var(--accent); }
+
+  .projects p { margin: 0.4rem 0 0.75rem; color: var(--subtext); }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .tags li {
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--surface0);
+    border-radius: 4px;
+  }
+
+  footer {
+    padding-block: 2rem 3rem;
+    font-size: 0.875rem;
+    color: var(--subtext);
+  }
+</style>

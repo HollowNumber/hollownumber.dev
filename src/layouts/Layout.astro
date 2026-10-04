@@ -1,23 +1,96 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Mikkel / Software Developer",
+  description = "CS student at DTU and RPA developer at DSB. I build tools in Rust.",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#303446" media="(prefers-color-scheme: dark)" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <!-- <meta property="og:image" content={new URL("/og.png", Astro.site)} /> -->
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+<style is:global>
+  /* Catppuccin Latte */
+  :root {
+    --base: #eff1f5;
+    --mantle: #e6e9ef;
+    --surface0: #ccd0da;
+    --text: #4c4f69;
+    --subtext: #6c6f85;
+    --accent: #8839ef; /* mauve */
+    --link: #1e66f5;   /* blue */
+
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "JetBrains Mono", "Cascadia Code", Menlo, monospace;
+  }
+
+  /* Catppuccin Frappé */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --base: #303446;
+      --mantle: #292c3c;
+      --surface0: #414559;
+      --text: #c6d0f5;
+      --subtext: #a5adce;
+      --accent: #ca9ee6;
+      --link: #8caaee;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--base);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  a {
+    color: var(--link);
+    text-underline-offset: 0.2em;
+  }
+  a:hover { color: var(--accent); }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  h1, h2, h3 { line-height: 1.2; margin: 0; }
 </style>
