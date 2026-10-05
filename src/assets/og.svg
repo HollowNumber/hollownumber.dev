@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#303446"/>
+  <rect x="0" y="0" width="12" height="630" fill="#ca9ee6"/>
+  <text x="96" y="250" font-family="Segoe UI, system-ui, sans-serif" font-size="76" font-weight="700" fill="#c6d0f5">Mikkel M.H. Pedersen</text>
+  <text x="96" y="310" font-family="Cascadia Code, Consolas, monospace" font-size="34" fill="#ca9ee6">HollowNumber</text>
+  <text x="96" y="400" font-family="Segoe UI, system-ui, sans-serif" font-size="38" fill="#a5adce">I build the tools I wish existed.</text>
+  <text x="96" y="540" font-family="Cascadia Code, Consolas, monospace" font-size="28" fill="#8caaee">hollownumber.dev</text>
+</svg>
