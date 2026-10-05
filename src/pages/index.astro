@@ -4,6 +4,13 @@ import Layout from "../layouts/Layout.astro";
 
 const projects = (await getCollection("projects", ({data}) => !data.draft )).sort((a,b) => a.data.order - b.data.order );
 
+const experience = (await getCollection("experience"))
+  .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
+
+
 const links = [
   { label: "GitHub", href: "https://github.com/HollowNumber" },
   { label: "Email", href: "mailto:mikkel@hollownumber.dev" },
@@ -26,7 +33,25 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
     </header>
-
+    <section aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Experience</h2>
+      <ol class="experience">
+        {experience.map(({ data }) => (
+          <li>
+            <div class="exp-head">
+              <h3>{data.role} · {data.company}</h3>
+              <span class="exp-dates">
+                {fmt(data.start)} to {data.end ? fmt(data.end) : "Present"}
+              </span>
+            </div>
+            <p>{data.summary}</p>
+            <ul>
+              {data.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </section>
     <section aria-labelledby="projects-heading">
       <h2 id="projects-heading">Projects</h2>
       <ul class="projects">
@@ -147,4 +172,36 @@ const year = new Date().getFullYear();
     font-size: 0.875rem;
     color: var(--subtext);
   }
+
+    .experience {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 4rem;
+      display: grid;
+      gap: 2rem;
+    }
+
+    .exp-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.25rem 1rem;
+    }
+
+    .exp-dates {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--subtext);
+    }
+
+    .experience p {
+      margin: 0.25rem 0 0.5rem;
+      color: var(--subtext);
+    }
+
+    .experience ul {
+      margin: 0;
+      padding-left: 1.1rem;
+    }
 </style>

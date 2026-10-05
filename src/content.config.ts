@@ -1,5 +1,5 @@
 import { defineCollection } from "astro:content";
-import { glob } from "astro/loaders";
+import { glob, file } from "astro/loaders";
 import { z } from "astro/zod";
 
 const projects = defineCollection({
@@ -14,4 +14,18 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { projects };
+const experience = defineCollection({
+  loader: file("src/content/experience.yml"),
+  schema: z.object({
+    company: z.string(),
+    role: z.string(),
+    start: z.coerce.date(),
+    end: z.coerce.date().optional(),
+    location: z.string(),
+    stack: z.array(z.string()).default([]),
+    summary: z.string(),
+    highlights: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { projects, experience };

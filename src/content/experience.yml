@@ -1,0 +1,26 @@
+- id: dsb
+  company: DSB
+  role: Junior RPA Developer
+  start: 2026-04-01
+  location: Denmark
+  stack: [UiPath, C#, Python]
+  summary: Building and maintaining production automations for Denmark's national rail operator.
+  highlights:
+    - Built a UiPath ReFramework robot that automates a monthly card-ordering process end to end, now running in production
+    - Designed its queue and transaction model, and benchmarked batched against per-order processing to make the case for higher throughput
+    - Track hours returned to the business per department as part of ROI reporting on automated processes
+    - Building a formatter that strips UiPath Studio's layout noise from XAML files, making pull request diffs reviewable for the team
+    - Debugged TLS/SSL failures between robots and internal APIs in VM environments
+
+- id: zbc
+  company: Zealand Business College
+  role: Contract Developer
+  start: 2024-01-01
+  end: 2024-06-30
+  location: Slagelse, Denmark
+  stack: [C#, Unity, SQL]
+  summary: Built internal software for the college as part of a three-person team.
+  highlights:
+    - Built a web app for the confectionery department to manage ingredients and check recipes against nutritional standards
+    - Designed the SQL database and an authenticated admin panel for managing ingredient and nutrient data
+    - Built an information screen system in Unity and C# with an interactive carousel showcasing the college's programmes and events
