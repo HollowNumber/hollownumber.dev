@@ -49,6 +49,11 @@ const year = new Date().getFullYear();
             <ul>
               {data.highlights.map((h) => <li>{h}</li>)}
             </ul>
+            {data.stack.length > 0 && (
+              <ul class="tags">
+                {data.stack.map((t) => <li>{t}</li>)}
+              </ul>
+            )}
           </li>
         ))}
       </ol>
@@ -204,5 +209,10 @@ const year = new Date().getFullYear();
     .experience ul {
       margin: 0;
       padding-left: 1.1rem;
+    }
+
+    .experience .tags {
+      margin-top: 0.75rem;
+      padding-left: 0;
     }
 </style>
