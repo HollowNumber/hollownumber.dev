@@ -6,8 +6,9 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "cv": "typst compile --root cv --input public=true cv/CV/English-CV.typ public/cv.pdf",
+    "dev": "bun run cv && astro dev",
+    "build": "bun run cv && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
