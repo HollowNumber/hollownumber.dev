@@ -2,8 +2,6 @@
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 
-// TODO: check repo URLs / make public before linking
-
 const projects = (await getCollection("projects", ({data}) => !data.draft )).sort((a,b) => a.data.order - b.data.order );
 
 const links = [
