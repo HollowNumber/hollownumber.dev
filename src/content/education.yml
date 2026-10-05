@@ -1,0 +1,13 @@
+- id: dtu
+  institution: Technical University of Denmark (DTU)
+  degree: BEng in Software Technology
+  start: 2025-09-01
+  location: Kongens Lyngby, Denmark
+
+- id: zbc
+  institution: Zealand Business College
+  degree: Higher Technical Examination (HTX), Robot Technology
+  start: 2021-08-01
+  end: 2024-06-30
+  location: Slagelse, Denmark
+  note: Grade average 9.2 / 12

@@ -7,6 +7,9 @@ const projects = (await getCollection("projects", ({data}) => !data.draft )).sor
 const experience = (await getCollection("experience"))
   .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
 
+const education = (await getCollection("education"))
+  .sort((a, b) => b.data.start.getTime() - a.data.start.getTime());
+
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-GB", { month: "short", year: "numeric" });
 
@@ -54,6 +57,22 @@ const year = new Date().getFullYear();
                 {data.stack.map((t) => <li>{t}</li>)}
               </ul>
             )}
+          </li>
+        ))}
+      </ol>
+    </section>
+    <section aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <ol class="education">
+        {education.map(({ data }) => (
+          <li>
+            <div class="exp-head">
+              <h3>{data.degree}</h3>
+              <span class="exp-dates">
+                {fmt(data.start)} to {data.end ? fmt(data.end) : "Present"}
+              </span>
+            </div>
+            <p>{data.institution}{data.note && ` · ${data.note}`}</p>
           </li>
         ))}
       </ol>
@@ -214,5 +233,18 @@ const year = new Date().getFullYear();
     .experience .tags {
       margin-top: 0.75rem;
       padding-left: 0;
+    }
+
+    .education {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 4rem;
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .education p {
+      margin: 0.25rem 0 0;
+      color: var(--subtext);
     }
 </style>
