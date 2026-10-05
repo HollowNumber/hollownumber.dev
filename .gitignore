@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 
 public/cv.pdf
+
+# wrangler
+.wrangler/
